@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Public Transport Registration</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <div class="container">
+        <h1>User Registration</h1>
+        <form action="#" method="POST">
+            <div class="name-fields">
+                <div class="form-group" style="flex: 1;">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required minlength="8">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="transportType">Preferred Transport Type</label>
+                <select id="transportType" name="transportType" required>
+                    <option value="">Select Transport Type</option>
+                    <option value="bus">Bus</option>
+                    <option value="travels">Travels</option>
+                    <option value="auto rickshaw">Auto Rickshaw</option>
+                    <option value="truck">Truck</option>
+                </select>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to <a href="#">Terms & Conditions</a></label>
+            </div>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="#">Login here</a>
+        </div>
+    </div>
 </body>
 </html>
