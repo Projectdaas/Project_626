@@ -1,2 +1,2 @@
 # Project_626
-Git Repository
+Git Repository Group Project
