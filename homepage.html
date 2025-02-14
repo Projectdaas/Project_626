@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project_626 - Journey Tracker & Planner</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style_home.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <span>🌍 Project_626</span>
+        </div>
+        <div class="nav-links">
+            <a href="#"><img src="map-icon.svg" alt="Map">Live Map</a>
+            <a href="#"><img src="account-icon.svg" alt="Account">Account</a>
+            <a href="#" class="btn-login">Login</a>
+            <a href="#" class="toggle-mode" onclick="toggleDarkMode()">🌙</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Plan Your Perfect Journey Here</h1>
+            <form class="booking-form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>From</label>
+                        <input type="text" placeholder="Enter origin" class="modern-input">
+                    </div>
+                    <div class="input-group">
+                        <label>To</label>
+                        <input type="text" placeholder="Enter destination" class="modern-input">
+                    </div>
+                    <div class="input-group">
+                        <label>Departure Date</label>
+                        <input type="date" class="modern-input">
+                    </div>
+                    <div class="input-group">
+                        <label>Departure Time</label>
+                        <input type="time" class="modern-input">
+                    </div>
+                </div>
+                <button class="cta-button">Search Routes</button>
+            </form>
+        </div>
+
+        <div class="map-section">
+            <h2>Live GPS Tracker</h2>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize map with geolocation
+        const map = L.map('map').setView([51.505, -0.09], 13);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+         // Dark Mode Toggle
+         function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            let modeIcon = document.querySelector(".toggle-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                modeIcon.innerHTML = "☀️";
+                localStorage.setItem("theme", "dark");
+            } else {
+                modeIcon.innerHTML = "🌙";
+                localStorage.setItem("theme", "light");
+            }
+        }
+
+        // GPS Tracking Simulation
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition((position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Your Current Location')
+                    .openPopup();
+                map.setView([lat, lng], 13);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    </script>
+</body>
+</html>
