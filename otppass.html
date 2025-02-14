@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Verify OTP</h1>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="otp">Enter OTP</label>
+                <input type="text" id="otp" name="otp" required minlength="6" maxlength="6">
+            </div>
+            <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" name="new-password" required minlength="8">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
+            </div>
+            <button type="submit" class="submit-btn"><a href="index.html">Change Password</a></button>
+        </form>
+         
+    <script>
+        document.getElementById('verifyForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            // Here you can add your verification logic (e.g., AJAX call to server)
+            // If verification is successful, redirect to the login page
+            window.location.href = '.html';
+        });
+    </script>
+</body>
+</html>
