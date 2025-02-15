@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Transport Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function validatePasswords() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm-password").value;
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        }
+        function previewPhoto() {
+            var file = document.getElementById("photo").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                document.getElementById("photoPreview").src = reader.result;
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById("photoPreview").src = "default-avatar.png";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Member Registration</h1>
+        <form action="#" method="POST" onsubmit="return validatePasswords()">
+            
+            <div class="form-group photo-group">
+                <label for="photo">
+                    <img id="photoPreview" class="photo-preview" src="default-avatar.png" alt="Profile Photo">
+                </label>
+                <input type="file" id="photo" name="photo" accept="image/*" required onchange="previewPhoto()">
+            </div>
+
+            <div class="name-fields">
+                <div class="form-group" style="flex: 1;">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <div class="form-group">
+                <label for="aadhar">Aadhaar Card Number</label>
+                <input type="text" id="aadhar" name="aadhar" pattern="[0-9]{12}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="alt-phone">Alternate Mobile Number</label>
+                <input type="tel" id="alt-phone" name="alt-phone" placeholder="Enter your alternate mobile number" pattern="[0-9]{10}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Current Address</label>
+                <textarea id="address" name="address" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Create Password</label>
+                <input type="password" id="password" name="password" required minlength="8">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Re-enter Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <div class="phone-verify">
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+                    <button type="button" class="verify-btn">Verify Phone Number</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="otp">OTP Verification</label>
+                <div class="otp-verify">
+                    <input type="text" id="otp" name="otp" maxlength="6" placeholder="Enter 6-digit OTP" required>
+                    <button type="button" class="verify-btn">Verify OTP</button>
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
+            </div>
+
+            <button type="submit" class="submit-btn">Create Account</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="Mlogin.html">Login here</a>
+        </div>
+    </div>
+</body>
+</html>
