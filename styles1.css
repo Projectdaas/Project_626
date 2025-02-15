@@ -15,7 +15,7 @@ body {
 /* Side Menu Styles */
 .side-menu {
   width: 250px;
-  background: linear-gradient(135deg, #2c3e50, #34495e);
+  background: linear-gradient(135deg, #00bef8, #34495e);
   color: #fff;
   padding: 20px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
