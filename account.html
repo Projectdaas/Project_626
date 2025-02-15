@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Page</title>
+  <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+  <div class="container">
+   
+    <div class="side-menu">
+      <div class="profile-section">
+        <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+        <h3 id="profile-name">pandurang </h3>
+        <p id="profile-email">projectdaas626@gmail.com</p>
+      </div>
+      <ul>
+        <li><a href="index.html">Profile</a></li>
+        <li><a href="editp.html">Edit Profile</a></li>
+        <li><a href="#logout">Logout</a></li>
+      </ul>
+    </div>
+
+ 
+    <div class="main-content">
+      <h1>Welcome to Your Account</h1>
+      <p>This is your account dashboard. You can manage your profile and settings here.</p>
+      <div id="profile-bio">
+        <h2>Bio:</h2>
+        <p id="bio-content">......</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to load saved profile data
+    window.addEventListener('load', function () {
+      const savedName = localStorage.getItem('profileName');
+      const savedEmail = localStorage.getItem('profileEmail');
+      const savedBio = localStorage.getItem('profileBio');
+
+      if (savedName) {
+        document.getElementById('profile-name').textContent = savedName;
+      }
+      if (savedEmail) {
+        document.getElementById('profile-email').textContent = savedEmail;
+      }
+      if (savedBio) {
+        document.getElementById('bio-content').textContent = savedBio;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+  <div class="container">
+    <div class="side-menu">
+      <div class="profile-section">
+        <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+        <h3 id="profile-name">pandu</h3>
+        <p id="profile-email">projectdaas626@gmail.com</p>
+      </div>
+      <ul>
+        <li><a href="index.html">Profile</a></li>
+        <li><a href="edit-profile.html">Edit Profile</a></li>
+        <li><a href="#logout">Logout</a></li>
+      </ul>
+    </div>
+
+   
+    <div class="main-content">
+      <h1>Edit Profile</h1>
+      <form id="edit-profile-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="John Doe" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="john.doe@example.com" required>
+
+        <label for="bio">Bio:</label>
+        <textarea id="bio" name="bio" rows="4">....!</textarea>
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to handle form submission and save changes
+    document.getElementById('edit-profile-form').addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent form from submitting the traditional way
+
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const bio = document.getElementById('bio').value;
+
+      // Save data to localStorage
+      localStorage.setItem('profileName', name);
+      localStorage.setItem('profileEmail', email);
+      localStorage.setItem('profileBio', bio);
+
+      // Update the profile section in the side menu
+      document.getElementById('profile-name').textContent = name;
+      document.getElementById('profile-email').textContent = email;
+
+      alert('Profile updated successfully!');
+    });
+
+    // Load saved data when the page loads
+    window.addEventListener('load', function () {
+      const savedName = localStorage.getItem('profileName');
+      const savedEmail = localStorage.getItem('profileEmail');
+      const savedBio = localStorage.getItem('profileBio');
+
+      if (savedName) {
+        document.getElementById('name').value = savedName;
+        document.getElementById('profile-name').textContent = savedName;
+      }
+      if (savedEmail) {
+        document.getElementById('email').value = savedEmail;
+        document.getElementById('profile-email').textContent = savedEmail;
+      }
+      if (savedBio) {
+        document.getElementById('bio').value = savedBio;
+      }
+    });
+  </script>
+</body>
+</html>
