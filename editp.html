@@ -8,32 +8,49 @@
 </head>
 <body>
   <div class="container">
+    <!-- Side Menu -->
     <div class="side-menu">
       <div class="profile-section">
-        <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
-        <h3 id="profile-name">pandu</h3>
-        <p id="profile-email">projectdaas626@gmail.com</p>
+        <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic">
+        <h3 id="profile-name">John Doe</h3>
+        <p id="profile-email">john.doe@example.com</p>
       </div>
       <ul>
-        <li><a href="index.html">Profile</a></li>
+        <li><a href="profile.html">Profile</a></li>
         <li><a href="edit-profile.html">Edit Profile</a></li>
-        <li><a href="#logout">Logout</a></li>
+        <li><a href="booking.html">Booking History</a></li>
+        <li><a href="login.html">Logout</a></li>
+        <li><a href="homepage.html">homepage</a></li>
       </ul>
     </div>
 
-   
+    <!-- Main Content -->
     <div class="main-content">
       <h1>Edit Profile</h1>
       <form id="edit-profile-form">
+        <!-- Profile Photo Section -->
+        <div class="profile-photo-section">
+          <label for="profile-photo">Profile Photo:</label>
+          <div class="profile-photo-preview">
+            <img src="profile-pic.jpg" alt="Profile Picture" id="profile-photo-preview">
+          </div>
+          <input type="file" id="profile-photo" name="profile-photo" accept="image/*">
+          <button type="button" onclick="document.getElementById('profile-photo').click()">Upload New Photo</button>
+        </div>
+
+        <!-- Name -->
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="John Doe" required>
 
+        <!-- Email -->
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="john.doe@example.com" required>
 
+        <!-- Bio -->
         <label for="bio">Bio:</label>
-        <textarea id="bio" name="bio" rows="4">....!</textarea>
+        <textarea id="bio" name="bio" rows="4">Hello, I'm John Doe!</textarea>
 
+        <!-- Save Changes Button -->
         <button type="submit">Save Changes</button>
       </form>
     </div>
@@ -61,11 +78,33 @@
       alert('Profile updated successfully!');
     });
 
+    // JavaScript to handle profile photo upload
+    document.getElementById('profile-photo').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          // Update the profile photo preview
+          const profilePhotoPreview = document.getElementById('profile-photo-preview');
+          profilePhotoPreview.src = e.target.result;
+
+          // Save the photo to localStorage
+          localStorage.setItem('profilePhoto', e.target.result);
+
+          // Update the profile photo in the side menu
+          const profilePic = document.getElementById('profile-pic');
+          profilePic.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
     // Load saved data when the page loads
     window.addEventListener('load', function () {
       const savedName = localStorage.getItem('profileName');
       const savedEmail = localStorage.getItem('profileEmail');
       const savedBio = localStorage.getItem('profileBio');
+      const savedPhoto = localStorage.getItem('profilePhoto');
 
       if (savedName) {
         document.getElementById('name').value = savedName;
@@ -77,6 +116,10 @@
       }
       if (savedBio) {
         document.getElementById('bio').value = savedBio;
+      }
+      if (savedPhoto) {
+        document.getElementById('profile-photo-preview').src = savedPhoto;
+        document.getElementById('profile-pic').src = savedPhoto;
       }
     });
   </script>

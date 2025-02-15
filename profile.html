@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account Page</title>
+  <title>Profile</title>
   <link rel="stylesheet" href="styles1.css">
 </head>
 <body>
@@ -14,13 +14,11 @@
         <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic">
         <h3 id="profile-name">John Doe</h3>
         <p id="profile-email">john.doe@example.com</p>
-        
-        
       </div>
       <ul>
         <li><a href="profile.html">Profile</a></li>
         <li><a href="editp.html">Edit Profile</a></li>
-         <li><a href="booking.html">Booking History</a></li>
+        <li><a href="booking.html">Booking History</a></li>
         <li><a href="login.html">Logout</a></li>
         <li><a href="homepage.html">Back</a></li>
       </ul>
@@ -28,11 +26,32 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>Welcome to Your Account</h1>
-      <p>This is your account dashboard. You can manage your profile and settings here.</p>
-      <div >
-        
-        <p id="bio-content">Hello, I'm John Doe!</p>
+      <h1>Your Profile</h1>
+
+      <!-- Uploaded Photo Section -->
+      <div class="uploaded-photo-section">
+        <label for="profile-photo">Profile Photo:</label>
+        <div class="profile-photo-preview">
+          <img src="profile-pic.jpg" alt="Profile Picture" id="profile-photo-preview">
+        </div>
+       
+       
+      </div>
+
+      <!-- Profile Details -->
+      <div class="profile-details">
+        <div class="detail">
+          <span class="label">Name:</span>
+          <span id="profile-name-display">John Doe</span>
+        </div>
+        <div class="detail">
+          <span class="label">Email:</span>
+          <span id="profile-email-display">john.doe@example.com</span>
+        </div>
+        <div class="detail">
+          <span class="label">Bio:</span>
+          <p id="profile-bio-display">Hello, I'm John Doe!</p>
+        </div>
       </div>
     </div>
   </div>
@@ -47,27 +66,37 @@
 
       if (savedName) {
         document.getElementById('profile-name').textContent = savedName;
+        document.getElementById('profile-name-display').textContent = savedName;
       }
       if (savedEmail) {
         document.getElementById('profile-email').textContent = savedEmail;
+        document.getElementById('profile-email-display').textContent = savedEmail;
       }
       if (savedBio) {
-        document.getElementById('bio-content').textContent = savedBio;
+        document.getElementById('profile-bio-display').textContent = savedBio;
       }
       if (savedPhoto) {
+        document.getElementById('profile-photo-preview').src = savedPhoto;
         document.getElementById('profile-pic').src = savedPhoto;
       }
     });
 
     // JavaScript to handle profile photo upload
-    document.getElementById('upload-photo').addEventListener('change', function (event) {
+    document.getElementById('profile-photo').addEventListener('change', function (event) {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
+          // Update the profile photo preview
+          const profilePhotoPreview = document.getElementById('profile-photo-preview');
+          profilePhotoPreview.src = e.target.result;
+
+          // Save the photo to localStorage
+          localStorage.setItem('profilePhoto', e.target.result);
+
+          // Update the profile photo in the side menu
           const profilePic = document.getElementById('profile-pic');
           profilePic.src = e.target.result;
-          localStorage.setItem('profilePhoto', e.target.result);
         };
         reader.readAsDataURL(file);
       }
