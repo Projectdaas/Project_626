@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver's Homepage - Passenger Tracking</title>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet Routing Machine CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff6f61, #ffcc00);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Map Section */
+    .map-section {
+      flex: 1 1 40%; /* Smaller map section */
+      margin-right: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .map-section:hover {
+      transform: translateY(-5px);
+    }
+
+    #map {
+      width: 100%;
+      height: 300px; /* Smaller map height */
+      border: none;
+      border-radius: 8px;
+    }
+
+    /* Passenger Section */
+    .passenger-section {
+      flex: 1 1 55%; /* Larger passenger section */
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .passenger-section:hover {
+      transform: translateY(-5px);
+    }
+
+    .passenger-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .passenger-list li {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s ease;
+      cursor: pointer; /* Indicates clickable items */
+    }
+
+    .passenger-list li:hover {
+      background: #f9f9f9;
+    }
+
+    .passenger-list li:last-child {
+      border-bottom: none;
+    }
+
+    .passenger-list strong {
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    /* Slider Menu */
+    .slider-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: linear-gradient(135deg, #333, #555);
+      color: #fff;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .slider-menu.active {
+      left: 0;
+    }
+
+    .slider-menu ul {
+      list-style-type: none;
+      padding: 20px;
+    }
+
+    .slider-menu ul li {
+      margin: 15px 0;
+    }
+
+    .slider-menu ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .slider-menu ul li a:hover {
+      color: #ffcc00;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Home Page Section */
+    .home-section {
+      flex: 1 1 100%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .home-section h2 {
+      color: #ff6f61;
+    }
+
+    /* Recent Bookings Section */
+    .recent-bookings {
+      flex: 1 1 100%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .recent-bookings h2 {
+      color: #ff6f61;
+    }
+
+    .recent-bookings ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .recent-bookings ul li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .recent-bookings ul li:last-child {
+      border-bottom: none;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #333, #555);
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .map-section, .passenger-section {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+
+      .slider-menu {
+        width: 200px;
+        left: -200px;
+      }
+
+      .slider-menu.active {
+        left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Slider Menu -->
+  <div class="slider-menu" id="sliderMenu">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#map">Live Tracking</a></li>
+      <li><a href="#passengers">Passengers</a></li>
+      <li><a href="#bookings">Recent Bookings</a></li>
+    </ul>
+  </div>
+
+  <!-- Menu Toggle Button -->
+  <div class="menu-toggle" id="menuToggle">&#9776;</div>
+
+  <header>
+    <h1>Driver's Homepage - Passenger Tracking</h1>
+  </header>
+
+  <div class="container">
+    <!-- Home Page Section -->
+    <section class="home-section" id="home">
+      <h2>Welcome to Your Dashboard</h2>
+      <p>Track your passengers, view recent bookings, and manage your rides efficiently.</p>
+    </section>
+
+    <!-- Live Map Tracking Section -->
+    <section class="map-section" id="map">
+      <h2>Live Location Tracking</h2>
+      <div id="map"></div>
+    </section>
+
+    <!-- Passengers Information Section -->
+    <section class="passenger-section" id="passengers">
+      <h2>Passengers Information</h2>
+      <ul class="passenger-list" id="passenger-list">
+        <!-- Passenger details will be dynamically added here -->
+      </ul>
+    </section>
+
+    <!-- Recent Bookings Section -->
+    <section class="recent-bookings" id="bookings">
+      <h2>Recent Bookings</h2>
+      <ul>
+        <li>Shivam kadam - nanded to nepal</li>
+        <li>atharva - nanded to pune</li>
+        <li>pandurang  - holy hole to deep hole</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Project 626. All rights reserved.</p>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet Routing Machine JS -->
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+  <script>
+    // Initialize Leaflet Map
+    const map = L.map('map').setView([-37.8136, 144.9631], 12); // Default center (Melbourne)
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // Get the driver's current location
+    let driverMarker;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          driverMarker = L.marker([latitude, longitude], {
+            title: "Your Location",
+          }).addTo(map).bindPopup("<b>Your Location</b>");
+          map.setView([latitude, longitude], 15); // Zoom to driver's location
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+
+    // Sample passenger data
+    const passengers = [
+      {
+        name: "shivam kadam",
+        phone: "9119519621",
+        location: [28.394857,  84.124008], // nanded
+        destination: [18.91667000, 77.50000000],
+      },
+      {
+        name: "Atharva",
+        phone: "1718",
+        location: [18.91667000, 77.50000000], // Near Melbourne
+        destination: [18.5196 ,73.8554],
+      },
+    ];
+
+    const passengerList = document.getElementById("passenger-list");
+
+    // Add markers and passenger details
+    passengers.forEach((passenger, index) => {
+      // Add marker for passenger's current location
+      const passengerMarker = L.marker(passenger.location, {
+        title: passenger.name,
+      }).addTo(map).bindPopup(`<b>${passenger.name}</b><br>Current Location`);
+
+      // Add marker for passenger's destination
+      L.marker(passenger.destination, {
+        title: `${passenger.name}'s Destination`,
+        icon: L.icon({
+          iconUrl: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+          iconSize: [32, 32],
+        }),
+      }).addTo(map).bindPopup(`<b>${passenger.name}</b><br>Destination`);
+
+      // Add actual road route using Leaflet Routing Machine
+      L.Routing.control({
+        waypoints: [
+          L.latLng(passenger.location[0], passenger.location[1]),
+          L.latLng(passenger.destination[0], passenger.destination[1]),
+        ],
+        routeWhileDragging: true,
+      }).addTo(map);
+
+      // Add passenger details to the list
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <strong>${passenger.name}</strong><br>
+        Phone: ${passenger.phone}<br>
+        Status: On the way to destination
+      `;
+      li.addEventListener("click", () => {
+        map.setView(passenger.location, 15); // Zoom and pan to passenger's location
+        passengerMarker.openPopup(); // Open the marker's popup
+      });
+      passengerList.appendChild(li);
+    });
+
+    // Slider Menu Toggle
+    const sliderMenu = document.getElementById("sliderMenu");
+    const menuToggle = document.getElementById("menuToggle");
+
+    menuToggle.addEventListener("click", () => {
+      sliderMenu.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>
