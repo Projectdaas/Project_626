@@ -35,7 +35,7 @@ body {
 }
 
 nav {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #ff6f61, #ffcc00);
     padding: 1rem 5%;
     display: flex;
     justify-content: space-between;
@@ -127,7 +127,7 @@ h1 {
 .cta-button {
     width: 100%;
     padding: 1.2rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #ff6f61, #ffcc00);
     color: white;
     border: none;
     border-radius: 10px;
