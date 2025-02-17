@@ -1,0 +1,110 @@
+<!-- admin-dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="AdminStyle.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Side Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Transport Admin</h2>
+            </div>
+            <ul class="nav-list">
+                <li class="active"><a href="#"><i class="icon-dashboard"></i> Dashboard</a></li>
+                <li><a href="users.html"><i class="icon-users"></i> Users</a></li>
+                <li><a href="transports.html"><i class="icon-bus"></i> Transports</a></li>
+                <li><a href="routes.html"><i class="icon-route"></i> Routes</a></li>
+                <li><a href="bookings.html"><i class="icon-ticket"></i> Bookings</a></li>
+                <li><a href="reports.html"><i class="icon-report"></i> Reports</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1>Dashboard Overview</h1>
+                </div>
+                <div class="header-right">
+                    <div class="admin-profile">
+                        <span class="admin-name">John Doe</span>
+                        <div class="profile-dropdown">
+                            <ul>
+                                <li><a href="#"><i class="icon-profile"></i> Profile</a></li>
+                                <li><a href="#"><i class="icon-settings"></i> Settings</a></li>
+                                <li><a href="admin-login.html"><i class="icon-logout"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <div class="stat-content">
+                        <h3>Total Users</h3>
+                        <p>1,234</p>
+                    </div>
+                    <i class="icon-users"></i>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-content">
+                        <h3>Active Bookings</h3>
+                        <p>256</p>
+                    </div>
+                    <i class="icon-ticket"></i>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-content">
+                        <h3>Total Revenue</h3>
+                        <p>$12,345</p>
+                    </div>
+                    <i class="icon-revenue"></i>
+                </div>
+                <div class="stat-card danger">
+                    <div class="stat-content">
+                        <h3>Pending Issues</h3>
+                        <p>15</p>
+                    </div>
+                    <i class="icon-alert"></i>
+                </div>
+            </div>
+
+            <!-- Recent Activity Table -->
+            <div class="recent-activity">
+                <h2>Recent Bookings</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>User</th>
+                            <th>Route</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be populated from backend -->
+                        <tr>
+                            <td>#1234</td>
+                            <td>john@example.com</td>
+                            <td>City A to City B</td>
+                            <td>2023-08-15</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td><button class="btn-view">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
