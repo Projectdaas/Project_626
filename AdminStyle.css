@@ -83,6 +83,16 @@ body {
     text-align: center;
 }
 
+.login-link {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.login-link a {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
 /* Admin Dashboard Styles */
 .admin-container {
     display: flex;
