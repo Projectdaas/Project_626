@@ -177,7 +177,6 @@
 
         <div id="error-message"></div>
 
-        <!-- User Form -->
         <div id="user-form" class="form-section">
             <h2>User Registration</h2>
             <form id="userForm">
@@ -223,7 +222,6 @@
             </form>
         </div>
 
-        <!-- Member Form -->
         <div id="member-form" class="form-section">
             <h2>Member Registration</h2>
             <form id="memberForm">
@@ -268,7 +266,6 @@
             </form>
         </div>
 
-        <!-- Admin Form -->
         <div id="admin-form" class="form-section">
             <h2>Admin Registration</h2>
             <form id="adminForm">
@@ -339,7 +336,6 @@
             alert('OTP sent to your phone number!');
         }
 
-        // Form validation and submission
         document.querySelectorAll('form').forEach(form => {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -362,10 +358,10 @@
                 errorElement.style.display = 'none';
                 alert('Registration successful!');
                 form.reset();
-                showForm('user'); // Reset to default form
+                showForm('user');
             });
         });
-        // Show user form by default
+        
         showForm('user');
     </script>
 </body>
