@@ -1,5 +1,4 @@
-/* General Styles */
-body {
+
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
@@ -10,9 +9,9 @@ body {
 .container {
   display: flex;
   min-height: 100vh;
-}
+ 
 
-/* Side Menu Styles */
+ }
 .side-menu {
   width: 250px;
   background: linear-gradient(135deg, #00bef8, #34495e);
